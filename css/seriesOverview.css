@@ -1,0 +1,49 @@
+/*
+ * @file plugins/generic/seriesOverview/css/seriesOverview.css
+ * CSS for Series Overview Plugin	
+ *
+ * Copyright (c) 2016 Language Science Press
+ * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
+ * 
+*/
+
+#seriesOverview h3 {
+	cursor: pointer; 
+}
+
+#seriesOverview h3 div.header {
+	min-height: 10px;
+	overflow: hidden;
+}
+
+#seriesOverview h3 div.headerText {
+	float:left;
+}
+
+#seriesOverview h3 a.linkToSeries{
+	float:right;
+}
+
+#seriesOverview h3 img.listIconImage {
+	height:20px;
+	display:inline;
+	float:left;
+	padding:0px 10px 0px 0px;
+}
+
+
+#seriesOverview div.accordionContentWrapper img {
+	height: 300px;
+	float:left;
+}
+
+#seriesOverview div.accordionContentWrapper div.bookList {
+	overflow:auto;
+}
+
+#seriesOverview div.accordionContent {
+	min-height: 310px;
+}
+
+
+
