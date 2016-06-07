@@ -13,12 +13,12 @@
 <div class="page page_catalog_series">
 
 	{* Breadcrumb *}
-	{**{include file="frontend/components/breadcrumbs_catalog.tpl" type="series" currentTitle=$series->getLocalizedTitle()}**}
+	{include file="frontend/components/breadcrumbs_catalog.tpl" type="series" currentTitle=$series->getLocalizedTitle()}
 
 	{* Count of monographs in this series *}
-	{**<div class="monograph_count">
+	<div class="monograph_count">
 		{translate key="catalog.browseTitles" numTitles=$publishedMonographs|@count}
-	</div>**}
+	</div>
 
 	{* Image and description *}
 	{assign var="image" value=$series->getImage()}
