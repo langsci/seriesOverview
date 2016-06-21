@@ -47,16 +47,16 @@ class LangsciCommonDAO extends DAO {
 		} else {
 			$row = $result->getRowAssoc(false);
 			$result->Close();
-			return $this->convertFromDB($row['setting_value'],null);
+			return $this->convertFromDB($row['setting_value'],$row['setting_type']);
 		}
 	}
 
 	function getUserGroupIdByName($user_group_name,$context_id) {
 
 		$result = $this->retrieve(
-			'select b.user_group_id, s.setting_value from user_groups b left join user_group_settings s on
-			b.user_group_id=s.user_group_id where s.setting_name="name" and s.setting_value="'.$user_group_name.'"
-			and b.context_id='.$context_id
+			'SELECT b.user_group_id, s.setting_value FROM user_groups b LEFT JOIN user_group_settings s ON
+			b.user_group_id=s.user_group_id WHERE s.setting_name="name" AND s.setting_value="'.$user_group_name.'"
+			AND b.context_id='.$context_id
 		);
 
 		if ($result->RecordCount() == 0) {
@@ -65,7 +65,7 @@ class LangsciCommonDAO extends DAO {
 		} else {
 			$row = $result->getRowAssoc(false);
 			$result->Close();
-			return $this->convertFromDB($row['user_group_id'],null);
+			return $this->convertFromDB($row['user_group_id'],'int');
 		}	
 	}
 
