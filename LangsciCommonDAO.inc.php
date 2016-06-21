@@ -47,7 +47,7 @@ class LangsciCommonDAO extends DAO {
 		} else {
 			$row = $result->getRowAssoc(false);
 			$result->Close();
-			return $this->convertFromDB($row['setting_value']);
+			return $this->convertFromDB($row['setting_value'],null);
 		}
 	}
 
@@ -65,7 +65,7 @@ class LangsciCommonDAO extends DAO {
 		} else {
 			$row = $result->getRowAssoc(false);
 			$result->Close();
-			return $this->convertFromDB($row['user_group_id']);
+			return $this->convertFromDB($row['user_group_id'],null);
 		}	
 	}
 

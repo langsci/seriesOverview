@@ -45,21 +45,25 @@ class SeriesOverviewHandler extends Handler {
 		$series = array();
 		$monographs = array();
 		$mostRecentMonograph = array();
+
 		while ($seriesObject = $seriesIterator->next()) {
 
 			$seriesId=$seriesObject->getId();
 			$publishedMonographs = $publishedMonographDao->getBySeriesId($seriesId, $press->getId())->toAssociativeArray();
 			$numberOfBooks = sizeof($publishedMonographs);	
+						
 			$seriesGroup = 'incubation';
 			if ($numberOfBooks>0) {
 				$seriesGroup = 'series';
 			}
 			$series[$seriesGroup][$seriesId]['seriesObject'] = $seriesObject;
 			$series[$seriesGroup][$seriesId]['title'] = $seriesObject->getLocalizedTitle();
-			$series[$seriesGroup][$seriesId]['numberOfBooks'] = $numberOfBooks;
-			$series[$seriesGroup][$seriesId]['link'] = $request->url($press,'catalog','series',$seriesObject->getPath());
+			$series[$seriesGroup][$seriesId]['numberOfBooks'] = $numberOfBooks;		
+			$series[$seriesGroup][$seriesId]['link'] = $seriesObject->getPath();
+					
 			$monographsForSeries = array();
 			$numberOfPublishedBooks = 0;
+
 			foreach ($publishedMonographs as $monographKey => $publishedMonograph) {
 
 				$localizedFullTitle = $publishedMonograph->getLocalizedFullTitle();
@@ -72,46 +76,46 @@ class SeriesOverviewHandler extends Handler {
 				$monographsForSeries[$monographKey]['fullTitle'] = $localizedFullTitle;
 				$monographsForSeries[$monographKey]['title'] = $publishedMonograph->getLocalizedTitle();
 				$monographsForSeries[$monographKey]['presentationString'] = getSubmissionPresentationString($monographKey);
-				$monographsForSeries[$monographKey]['link'] = 
-											$request->url($press,'catalog','book',$monographKey);
+				$monographsForSeries[$monographKey]['link'] = $monographKey;
 			}
 			usort($monographsForSeries,'sort_books_by_title');
 			$series[$seriesGroup][$seriesId]['monographs'] = $monographsForSeries;
 			$series[$seriesGroup][$seriesId]['numberOfPublishedBooks'] = $numberOfPublishedBooks;
-			$series[$seriesGroup][$seriesId]['numberOfForthcomingBooks'] = $numberOfBooks-$numberOfPublishedBooks;
+			$series[$seriesGroup][$seriesId]['numberOfForthcomingBooks'] = $numberOfBooks-$numberOfPublishedBooks;	
 		}
-
+		
 		krsort($series);
-
-		if (sizeof($series['incubation'])) {
+		
+		if (array_key_exists('incubation',$series) && sizeof($series['incubation'])) {
 			usort($series['incubation'],'sort_by_title_and_numberOfBooks');
 		}
-		if (sizeof($series['series'])) {
+		if (array_key_exists('series',$series) && sizeof($series['series'])) {
 			usort($series['series'],'sort_by_title_and_numberOfBooks');
 		}
 
 		$mostRecentMonographs = array(); // key: seriesId, value: id of most recent monograph
-		foreach ($series['series'] as $singleSeries) { 
-			$publicationDates = array();
-			$seriesId = $singleSeries['seriesObject']->getId();
+		if (array_key_exists('series',$series)) {
+			foreach ($series['series'] as $singleSeries) { 
+				$publicationDates = array();
+				$seriesId = $singleSeries['seriesObject']->getId();
 
-			foreach ($singleSeries['monographs'] as $key=>$monograph) {
-				$publicationDates[$monograph['publicationDate']] = $monograph['submissionId'];
-			}	
-			krsort($publicationDates);
-			$dates = array_keys($publicationDates);
-			if ($dates[0]) {
- 				$mostRecentMonographs[$seriesId] = $publicationDates[$dates[0]];
-			} else {
- 				$mostRecentMonographs[$seriesId] = null;
+				foreach ($singleSeries['monographs'] as $key=>$monograph) {
+					$publicationDates[$monograph['publicationDate']] = $monograph['submissionId'];
+				}	
+				krsort($publicationDates);
+				$dates = array_keys($publicationDates);
+				if ($dates[0]) {
+					$mostRecentMonographs[$seriesId] = $publicationDates[$dates[0]];
+				} else {
+					$mostRecentMonographs[$seriesId] = null;
+				}
 			}
-		}
+		}	
 
 		$templateMgr = TemplateManager::getManager($request);
 
 		$templateMgr->assign('mostRecentMonographs', $mostRecentMonographs);
 		$templateMgr->assign('pageTitle', 'plugins.generic.title.seriesOverview');
-		$templateMgr->assign('data', $data);
 		$templateMgr->assign('baseUrl',$request->getBaseUrl());	
 		$templateMgr->assign('monographs',$monographs);
 		$templateMgr->assign('series',$series);

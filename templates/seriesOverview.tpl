@@ -69,12 +69,14 @@
 							</span>			
 						</div>
 
-						<a href={$singleSeries.link} class='linkToSeries'>{translate key="plugins.generic.seriesOverview.linkToSeries"}</a>
+						<a href="{url router=$smarty.const.ROUTE_PAGE page="catalog" op="series" path=$singleSeries.link|escape}" class='linkToSeries'>
+							{translate key="plugins.generic.seriesOverview.linkToSeries"}
+						</a>
 
 					</div>
 				</h3> 
 				<div class='accordionContentWrapper'>
-					<div {if $useImages}class='accordionContent'{/if}>
+					<div {if $useImages}class='accordionContentWithImage'{/if}>
 
 					{if $useImages && not $monographId}
 						<img class="seriesImage" alt='' src='{url router=$smarty.const.ROUTE_PAGE page="catalog" op="fullSize" type="series" id=$seriesId}'>
@@ -86,7 +88,11 @@
 						<ul>
 							{if $singleSeries.numberOfBooks>0}
 	    						{foreach from=$singleSeries.monographs item=publishedMonograph}
-									<li class='books'><a href={$publishedMonograph.link}>{$publishedMonograph.presentationString}</a></li>
+									<li class='books'>
+										<a href="{url router=$smarty.const.ROUTE_PAGE page="catalog" op="book" path=$publishedMonograph.link|escape}">
+											{$publishedMonograph.presentationString}
+										</a>
+									</li>
 		    					{/foreach} 
 							{else}
 								<li>{translate key="plugins.generic.seriesOverview.noPublications"}</li>
