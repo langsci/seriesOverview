@@ -18,7 +18,7 @@
 			$pubformats = $publishedMonograph->getPublicationFormats();
 			for ($i=0; $i<sizeof($pubformats); $i++) {
 
-				$formatName = implode($pubformats[$i]->getName());
+				$formatName = $pubformats[$i]->getName(AppLocale::getLocale());
 				if ($formatName=="PDF") {
 
 					$pubdates = $pubformats[$i]->getPublicationDates();

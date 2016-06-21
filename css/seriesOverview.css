@@ -41,7 +41,7 @@
 	overflow:auto;
 }
 
-#seriesOverview div.accordionContent {
+#seriesOverview div.accordionContentWithImage {
 	min-height: 310px;
 }
 
