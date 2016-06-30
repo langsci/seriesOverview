@@ -19,11 +19,15 @@
 	<div class="monograph_count">
 		{translate key="catalog.browseTitles" numTitles=$publishedMonographs|@count}
 	</div>
+	
+	{* Title as heading *}
+	<h3>{$series->getLocalizedTitle()}</h3>
 
 	{* Image and description *}
 	{assign var="image" value=$series->getImage()}
 	{assign var="description" value=$series->getLocalizedDescription()|strip_unsafe_html}
-	<div class="about_section{if $image} has_image{/if}{if $description} has_description{/if}">
+	<!--<div class="about_section{if $image} has_image{/if}{if $description} has_description{/if}">-->
+	<div>
 		{if $image}
 		{if $imageOnSeriesPages}
 			<div class="cover" href="{url router=$smarty.const.ROUTE_PAGE page="catalog" op="fullSize" type="series" id=$series->getId()}">
