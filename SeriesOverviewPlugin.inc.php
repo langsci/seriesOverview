@@ -45,7 +45,7 @@ class SeriesOverviewPlugin extends GenericPlugin {
 			case 'frontend/pages/catalogSeries.tpl':
 				$templateMgr->assign('imageOnSeriesPages',$imageOnSeriesPages);		
 				$templateMgr->display($this->getTemplatePath() . 
-				'catalogSeriesModified.tpl', 'text/html', 'TemplateManager::display');
+				'langsci_catalogSeries.tpl', 'text/html', 'TemplateManager::display');
 				return true;
 		}
 		return false;

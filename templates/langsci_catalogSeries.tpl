@@ -12,8 +12,9 @@
 
 <div class="page page_catalog_series">
 
-	{* Breadcrumb *}
+	{* Breadcrumb 
 	{include file="frontend/components/breadcrumbs_catalog.tpl" type="series" currentTitle=$series->getLocalizedTitle()}
+	*}
 
 	{* Count of monographs in this series *}
 	<div class="monograph_count">
@@ -21,7 +22,7 @@
 	</div>
 	
 	{* Title as heading *}
-	<h3>{$series->getLocalizedTitle()}</h3>
+	<h1>{$series->getLocalizedTitle()}</h1>
 
 	{* Image and description *}
 	{assign var="image" value=$series->getImage()}
@@ -40,12 +41,14 @@
 		</div>
 		{if $series->getOnlineISSN()}
 			<div class="onlineISSN">
-				{translate key="catalog.manage.series.onlineIssn"} {$series->getOnlineISSN()|escape}
+				<h3>{translate key="catalog.manage.series.onlineIssn"}</h3> 
+				{$series->getOnlineISSN()|escape}
 			</div>
 		{/if}
 		{if $series->getPrintISSN()}
 			<div class="printISSN">
-				{translate key="catalog.manage.series.printIssn"} {$series->getPrintISSN()|escape}
+				<h3>{translate key="catalog.manage.series.printIssn"}</h3>
+				{$series->getPrintISSN()|escape}
 			</div>
 		{/if}
 	</div>
@@ -61,11 +64,11 @@
 
 		{* New releases *}
 		{if !empty($newReleasesMonographs)}
-			{include file="frontend/components/monographList.tpl" monographs=$newReleasesMonographs titleKey="catalog.newReleases"}
+			{include file="../plugins/generic/seriesOverview/templates/langsci_monographList.tpl" monographs=$newReleasesMonographs titleKey="catalog.newReleases"}
 		{/if}
 
 		{* All monographs *}
-		{include file="frontend/components/monographList.tpl" monographs=$publishedMonographs featured=$featuredMonographIds titleKey="catalog.allBooks"}
+		{include file="../plugins/generic/seriesOverview/templates/langsci_monographList.tpl" monographs=$publishedMonographs featured=$featuredMonographIds titleKey="catalog.allBooks"}
 
 	{/if}
 
