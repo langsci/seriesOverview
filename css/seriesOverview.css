@@ -7,12 +7,24 @@
  * 
 */
 
+
+#seriesOverview h3 div span.numberOfBooks{
+	color: rgba(0, 0, 0, 0.54);
+    font-size: 13px;
+   
+}
+
+.bookList .books{
+	padding-bottom: 10px;
+}
+
 #seriesOverview h3 {
 	cursor: pointer; 
 }
 
 #seriesOverview h3 div.header {
-	min-height: 10px;
+/*	min-height: 10px; */
+/*	padding-bottom: 5px; */
 	overflow: hidden;
 }
 
@@ -22,13 +34,14 @@
 
 #seriesOverview h3 a.linkToSeries{
 	float:right;
+	font-size: 13px;
 }
 
 #seriesOverview h3 img.listIconImage {
 	height:20px;
 	display:inline;
 	float:left;
-	padding:0px 10px 0px 0px;
+	padding:0px 5px 0px 0px;
 }
 
 
@@ -40,6 +53,7 @@
 #seriesOverview div.accordionContentWrapper div.bookList {
 	overflow:auto;
 }
+
 
 #seriesOverview div.accordionContentWithImage {
 	min-height: 310px;
