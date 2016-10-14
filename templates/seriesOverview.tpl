@@ -28,6 +28,7 @@
 
 </script>
 
+<!-- hide default icon of accordion if there are own images -->
 {if $useImages}
 <style>
   span.ui-icon {ldelim} display:none !important; {rdelim}
@@ -44,32 +45,36 @@
 	{foreach from=$series item=seriesGroup key=key}
 
 		{if $key=="incubation"}
-			<p class="sectionHeader">
+		<!--	<p class="sectionHeader"> -->
+			<h3>
 				{translate key="plugins.generic.seriesOverview.incubationSection"}
-			</p>
+			</h3>
+		<!--	</p> -->
 		{/if}	
 
 		<div class='seriesOverviewAccordion'>
 			{foreach from=$seriesGroup item=singleSeries}
-				<h3>
+				<h3 class="accordionHeader">
 					{assign var=seriesId value=$singleSeries.seriesObject->getId()}
 					{assign var=monographId value=$mostRecentMonographs[$seriesId]}
 					<div class="header">
 
 						{if $useImages && not $monographId}
-							<img  class="listIconImage" alt='' src="{url router=$smarty.const.ROUTE_PAGE page="catalog"
-						op="thumbnail" type="series" id=$seriesId}">
+							<img  class="listIconImage" alt='' src="{url router=$smarty.const.ROUTE_PAGE page='catalog'
+						op='thumbnail' type='series' id=$seriesId}"/>
 						{elseif $useImages}
-							<img class="listIconImage" alt='' src="{url router=$smarty.const.ROUTE_COMPONENT component="submission.CoverHandler" op="thumbnail" submissionId=$monographId}" />
+							<img class="listIconImage" alt='' src="{url router=$smarty.const.ROUTE_COMPONENT component='submission.CoverHandler' op='thumbnail' submissionId=$monographId}" />
 						{/if}
 
-						<div class="headerText">		
-							<span class="seriesTitle">{$singleSeries.seriesObject->getLocalizedFullTitle()}</span>
-							<span class='numberOfBooks'">({$singleSeries.numberOfPublishedBooks} {if $singleSeries.numberOfPublishedBooks==1}{translate key="plugins.generic.seriesOverview.book"}{else}{translate key="plugins.generic.seriesOverview.books"}{/if}{if $singleSeries.numberOfForthcomingBooks>0}, {$singleSeries.numberOfForthcomingBooks} {translate key="plugins.generic.seriesOverview.forthcoming"}{/if})
-							</span>			
+						<div class="headerText">	
+							<a>						
+								<span class="seriesTitle">{$singleSeries.seriesObject->getLocalizedFullTitle()}</span>
+								<span class='numberOfBooks'>({$singleSeries.numberOfPublishedBooks} {if $singleSeries.numberOfPublishedBooks==1}{translate key="plugins.generic.seriesOverview.book"}{else}{translate key="plugins.generic.seriesOverview.books"}{/if}{if $singleSeries.numberOfForthcomingBooks>0}, {$singleSeries.numberOfForthcomingBooks} {translate key="plugins.generic.seriesOverview.forthcoming"}{/if})
+								</span>		
+							</a>
 						</div>
 
-						<a href="{url router=$smarty.const.ROUTE_PAGE page="catalog" op="series" path=$singleSeries.link|escape}" class='linkToSeries'>
+						<a href="{url router=$smarty.const.ROUTE_PAGE page='catalog' op='series' path=$singleSeries.link|escape}" class='linkToSeries'>
 							{translate key="plugins.generic.seriesOverview.linkToSeries"}
 						</a>
 

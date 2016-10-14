@@ -64,11 +64,11 @@
 
 		{* New releases *}
 		{if !empty($newReleasesMonographs)}
-			{include file="../plugins/generic/seriesOverview/templates/langsci_monographList.tpl" monographs=$newReleasesMonographs titleKey="catalog.newReleases"}
+			{include file="frontend/components/monographList.tpl" monographs=$newReleasesMonographs titleKey="catalog.newReleases"}
 		{/if}
 
 		{* All monographs *}
-		{include file="../plugins/generic/seriesOverview/templates/langsci_monographList.tpl" monographs=$publishedMonographs featured=$featuredMonographIds titleKey="catalog.allBooks"}
+		{include file="frontend/components/monographList.tpl" monographs=$publishedMonographs featured=$featuredMonographIds titleKey="catalog.allBooks"}
 
 	{/if}
 
