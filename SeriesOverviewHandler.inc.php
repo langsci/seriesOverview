@@ -113,9 +113,10 @@ class SeriesOverviewHandler extends Handler {
 		}	
 
 		$templateMgr = TemplateManager::getManager($request);
-
+		$this->setupTemplate($request); // important for getting the correct menue
 		$templateMgr->assign('mostRecentMonographs', $mostRecentMonographs);
 		$templateMgr->assign('pageTitle', 'plugins.generic.title.seriesOverview');
+
 		$templateMgr->assign('baseUrl',$request->getBaseUrl());	
 		$templateMgr->assign('monographs',$monographs);
 		$templateMgr->assign('series',$series);
